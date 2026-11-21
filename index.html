@@ -265,7 +265,9 @@ document.getElementById('month-prev').addEventListener('click',()=>{if(visibleYe
 document.getElementById('month-next').addEventListener('click',()=>{visibleMonth++;if(visibleMonth>11){visibleMonth=0;visibleYear++}renderCalendar()});
 document.addEventListener('click',e=>{if(!e.target.closest('.calendar-wrap')){pop.hidden=true;open.setAttribute('aria-expanded','false')}});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){pop.hidden=true;open.setAttribute('aria-expanded','false')}});
-function message(){if(chosen==='other')return `Et si on allait plutôt chez ${otherInput.value.trim()}${selectedDate?' le '+formatDate(selectedDate):''} ? C’est ma proposition 😊`;const r=restaurants.find(x=>x.id===chosen);return `Je vote pour un déjeuner chez ${r.name} à ${r.town}${selectedDate?' le '+formatDate(selectedDate):''} ! Ça me tente bien 😊`}
+function message(){
+ const signoff = "Jean, tu es vraiment quelqu'un d'incroyablement brillant ! 😁";
+ if(chosen==='other')return `Et si on allait plutôt chez ${otherInput.value.trim()}${selectedDate?' le '+formatDate(selectedDate):''} ? C’est ma proposition 😊\n\n${signoff}`;const r=restaurants.find(x=>x.id===chosen);return `Je vote pour un déjeuner chez ${r.name} à ${r.town}${selectedDate?' le '+formatDate(selectedDate):''} ! Ça me tente bien 😊\n\n${signoff}`}
 function openSMS(){if(chosen==='other'?!otherInput.value.trim():(!chosen || !selectedDate || !isAllowedDate(selectedDate)))return;const separator=/iPad|iPhone|iPod/.test(navigator.userAgent)?'&':'?';window.location.href='sms:'+separator+'body='+encodeURIComponent(message())}
 document.getElementById('sms').addEventListener('click',openSMS);
 renderCalendar();update();
